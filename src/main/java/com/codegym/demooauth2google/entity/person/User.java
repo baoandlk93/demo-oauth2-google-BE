@@ -1,4 +1,4 @@
-package com.codegym.demooauth2google.entity;
+package com.codegym.demooauth2google.entity.person;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,6 +19,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -28,12 +29,14 @@ import java.util.Set;
 @AllArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+    @Column(nullable = false, unique = true)
     private String username;
     private String password;
     private String name;
     private Integer old;
+    @Column(nullable = false, unique = true)
     private String email;
     private String address;
     private String phone;
@@ -46,7 +49,7 @@ public class User {
     private String rememberToken;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
+            joinColumns = @JoinColumn(name = "user_id", columnDefinition = ""),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Role> roles = new HashSet<Role>();

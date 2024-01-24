@@ -1,4 +1,4 @@
-package com.codegym.demooauth2google.dto;
+package com.codegym.demooauth2google.dto.response;
 
 import lombok.Builder;
 import lombok.Data;
